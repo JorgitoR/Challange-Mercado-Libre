@@ -1,0 +1,9 @@
+.env
+
+#vim
+**.swp
+
+# OS
+.DS_Store
+./**/.DS_Store
+
