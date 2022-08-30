@@ -29,7 +29,7 @@
       "memoryReservation": null,
       "volumesFrom": [],
       "stopTimeout": null,
-      "image": "220192014943.dkr.ecr.us-east-2.amazonaws.com/credit-ecr",
+      "image": "220192014943.dkr.ecr.us-east-2.amazonaws.com/credit-ecr:edeb85d341157bf9c6c2ce0befa8605da6eedcb3",
       "startTimeout": null,
       "firelensConfiguration": null,
       "dependsOn": null,
@@ -56,7 +56,7 @@
     "EXTERNAL",
     "EC2"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-2:220192014943:task-definition/mercado-credit-challange-app:1",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-2:220192014943:task-definition/mercado-credit-challange-app:2",
   "family": "mercado-credit-challange-app",
   "requiresAttributes": [
     {
@@ -73,7 +73,7 @@
   "networkMode": null,
   "runtimePlatform": null,
   "cpu": null,
-  "revision": 1,
+  "revision": 2,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
