@@ -46,7 +46,7 @@
       "dockerLabels": null,
       "systemControls": null,
       "privileged": null,
-      "name": "container-credit"
+      "name": "container-challange-ecs"
     }
   ],
   "placementConstraints": [],
@@ -56,8 +56,8 @@
     "EXTERNAL",
     "EC2"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-2:220192014943:task-definition/mercado-libre-app:1",
-  "family": "mercado-libre-app",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-2:220192014943:task-definition/task-container-definitions:1",
+  "family": "task-container-definitions",
   "requiresAttributes": [
     {
       "targetId": null,
@@ -72,7 +72,7 @@
   ],
   "networkMode": null,
   "runtimePlatform": null,
-  "cpu": null,
+  "cpu": "1024",
   "revision": 1,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
