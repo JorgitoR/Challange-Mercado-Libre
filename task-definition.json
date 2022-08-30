@@ -29,7 +29,7 @@
       "memoryReservation": null,
       "volumesFrom": [],
       "stopTimeout": null,
-      "image": "220192014943.dkr.ecr.us-east-2.amazonaws.com/credit-ecr:edeb85d341157bf9c6c2ce0befa8605da6eedcb3",
+      "image": "220192014943.dkr.ecr.us-east-2.amazonaws.com/credit-ecr",
       "startTimeout": null,
       "firelensConfiguration": null,
       "dependsOn": null,
@@ -46,18 +46,18 @@
       "dockerLabels": null,
       "systemControls": null,
       "privileged": null,
-      "name": "mercado-credit-challange-app"
+      "name": "container-credit"
     }
   ],
   "placementConstraints": [],
-  "memory": "512",
+  "memory": "3072",
   "taskRoleArn": null,
   "compatibilities": [
     "EXTERNAL",
     "EC2"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-2:220192014943:task-definition/mercado-credit-challange-app:2",
-  "family": "mercado-credit-challange-app",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-2:220192014943:task-definition/mercado-libre-app:1",
+  "family": "mercado-libre-app",
   "requiresAttributes": [
     {
       "targetId": null,
@@ -73,7 +73,7 @@
   "networkMode": null,
   "runtimePlatform": null,
   "cpu": null,
-  "revision": 2,
+  "revision": 1,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
