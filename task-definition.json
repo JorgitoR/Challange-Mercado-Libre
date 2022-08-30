@@ -46,7 +46,7 @@
       "dockerLabels": null,
       "systemControls": null,
       "privileged": null,
-      "name": "credit-app"
+      "name": "mercado-credit-challange-app"
     }
   ],
   "placementConstraints": [],
@@ -56,8 +56,8 @@
     "EXTERNAL",
     "EC2"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-2:220192014943:task-definition/credit-mercado-app:1",
-  "family": "credit-mercado-app",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-2:220192014943:task-definition/mercado-credit-challange-app:1",
+  "family": "mercado-credit-challange-app",
   "requiresAttributes": [
     {
       "targetId": null,
