@@ -25,7 +25,7 @@ func (app *App) Run() error {
 	}
 	err = adapters.MigrateDB(postgresClient)
 	if err != nil {
-		log.Fatal("failed to setup database.")
+		log.Fatal("failed to setup database")
 		return err
 	}
 	repository := struct {
