@@ -1,8 +1,8 @@
 package domain
 
 import (
-	"github.com/JorgitoR/MercadoCredito/internal/domain/model"
-	_ "github.com/JorgitoR/MercadoCredito/internal/domain/model"
+	"github.com/JorgitoR/Challange-Mercado-Libre/internal/domain/model"
+	_ "github.com/JorgitoR/Challange-Mercado-Libre/internal/domain/model"
 )
 
 type MercadoCredito struct {
@@ -15,35 +15,43 @@ func New(repository Repository) *MercadoCredito {
 	}
 }
 
-func (m *MercadoCredito) CreditApplication(payload model.CreditApplication) (model.ResponseCreditApplication, error) {
-	response, err := m.repository.CreditApplication(payload)
+func (m *MercadoCredito) CreditApplication(creditApplication model.CreditApplication) error {
+	err := m.repository.CreditApplication(creditApplication)
 	if err != nil {
-		return model.ResponseCreditApplication{}, err
+		return err
+	}
+	return nil
+}
+
+func (m *MercadoCredito) UserLoans(creditApplication model.UserLoans) (uint, error) {
+	loanId, err := m.repository.UserLoans(creditApplication)
+	if err != nil {
+		return 0, err
+	}
+	return loanId, nil
+}
+
+func (m *MercadoCredito) GetLoans(dateFrom string, dateTo string) ([]model.CreditApplication, error) {
+	response, err := m.repository.GetLoans(dateFrom, dateTo)
+	if err != nil {
+		return []model.CreditApplication{}, err
 	}
 	return response, nil
 }
 
-func (m *MercadoCredito) AllLoan() (model.ResponseAllLoan, error) {
-	response, err := m.repository.AllLoan()
+func (m *MercadoCredito) PostPayment(payment model.RegisterPaymentMade) (model.DebtPayment, error) {
+	response, err := m.repository.RegisterPaymentMade(payment)
 	if err != nil {
-		return model.ResponseAllLoan{}, err
+		return model.DebtPayment{}, nil
 	}
 	return response, nil
 }
 
-func (m *MercadoCredito) RegisterPaymentMade(payload model.RegisterPaymentMade) (model.ResponseRegisterPaymentMade, error) {
-	response, err := m.repository.RegisterPaymentMade(payload)
-	if err != nil {
-		return model.ResponseRegisterPaymentMade{}, nil
-	}
-	return response, nil
-}
+func (m *MercadoCredito) GetDebt(id uint) (model.UserLoans, error) {
 
-func (m *MercadoCredito) RaiseDebt(payload model.RaiseDebt) (model.ResponseRaiseDebt, error) {
-
-	response, err := m.repository.RaiseDebt(payload)
+	response, err := m.repository.GetDebt(id)
 	if err != nil {
-		return model.ResponseRaiseDebt{}, nil
+		return model.UserLoans{}, err
 	}
 	return response, nil
 }

@@ -4,11 +4,10 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/JorgitoR/MercadoCredito/internal/application/usecases"
-	"github.com/JorgitoR/MercadoCredito/internal/domain"
-	"github.com/JorgitoR/MercadoCredito/internal/infraestructure/database"
-	"github.com/JorgitoR/MercadoCredito/internal/infraestructure/entrypoints"
-	"github.com/JorgitoR/MercadoCredito/internal/usecases"
+	"github.com/JorgitoR/Challange-Mercado-Libre/internal/domain"
+	"github.com/JorgitoR/Challange-Mercado-Libre/internal/infraestructure/adapters"
+	"github.com/JorgitoR/Challange-Mercado-Libre/internal/infraestructure/entrypoints"
+	"github.com/JorgitoR/Challange-Mercado-Libre/internal/usecases"
 )
 
 // App - the struct which contains information about our app
@@ -20,19 +19,29 @@ type App struct {
 // Run - sets up our application
 func (app *App) Run() error {
 
-	postgresClient, err := database.NewDatabase()
+	postgresClient, err := adapters.PostgresClient()
 	if err != nil {
 		return err
 	}
+	err = adapters.MigrateDB(postgresClient)
+	if err != nil {
+		log.Fatal("failed to setup database")
+		return err
+	}
+	repository := struct {
+		*adapters.DTBAdapter
+	}{
+		adapters.NewPostgreSQLAdapter(postgresClient),
+	}
 	// Domain
-	domain := domain.New(postgresClient)
+	domain := domain.New(repository)
 
 	// UseCases
-	service := usecases.NewService(domain, postgresClient)
+	domainMarketPlace := usecases.NewService(domain, postgresClient)
 
 	// Infraestructure -
-	handler := entrypoints.NewAPIService(service)
-
+	handler := entrypoints.NewAPIService(domainMarketPlace)
+	handler.SetupRoutes()
 	if err := http.ListenAndServe(":8080", handler.Router); err != nil {
 		log.Fatal("Failed to set up server")
 		return err
@@ -41,21 +50,12 @@ func (app *App) Run() error {
 }
 
 func main() {
-
 	app := App{
 		Name:    "",
 		Version: "1.0",
 	}
 	if err := app.Run(); err != nil {
-		log.Fatal("Error starting up our REST API")
+		log.Fatal("Error starting up our REST API", err)
 	}
-
-	/*
-		dynamoClient := dynamo.New()
-		repository := adapters.NewDynamoAdapter(dynamoClient)
-		domain := domain.New(repository)
-		service := usecases.NewService(domain, repository)
-		api := entrypoints.NewApi(service)
-	*/
 
 }

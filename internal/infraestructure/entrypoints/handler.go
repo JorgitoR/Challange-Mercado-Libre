@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/labstack/gommon/log"
 )
 
 type Handler struct {
@@ -23,11 +24,12 @@ func NewAPIService(service Service) *Handler {
 
 // SetupRoutes - sets up all the routes for our application
 func (h *Handler) SetupRoutes() {
-
-	h.Router.HandleFunc("/v1/mercadoPago/creditApplication", h.CreditApplication).Methods("POST")
-	h.Router.HandleFunc("/v1/mercadoPago/AllLoan", h.AllLoan).Methods("GET")
-	h.Router.HandleFunc("/v1/mercadoPago/RegisterPaymentMade", h.RegisterPaymentMade).Methods("POST")
-	h.Router.HandleFunc("/v1/mercadoPago/RaiseDebt", h.RaiseDebt).Methods("GET")
+	log.Info("Setting Up Routes")
+	h.Router = mux.NewRouter()
+	h.Router.HandleFunc("/api/v1/credit", h.PostCredit).Methods("POST")
+	h.Router.HandleFunc("/api/v1/credits", h.GetLoans).Methods("GET")
+	h.Router.HandleFunc("/api/v1/payment", h.PostPayment).Methods("POST")
+	h.Router.HandleFunc("/api/v1/debt", h.GetDebt).Methods("GET")
 	h.Router.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 	})

@@ -1,41 +1,49 @@
 package model
 
-type MercadoCredito struct {
-}
+import (
+	"github.com/jinzhu/gorm"
+)
 
 type CreditApplication struct {
-	amount string
-	term   string
-	userId string
-}
-type ResponseCreditApplication struct {
-	LoanId      string
-	Installment string
+	ID     int `gorm:"primary_key"`
+	UserId uint
+	Amount int
+	Term   float64
+	Rate   float32
+	Target string
+	Date   string
 }
 
-//
-type ResponseAllLoan struct {
-	amount string
-	term   int
-	rate   int
-	userId int
-	target string
-	date   string
+type UserCredit struct {
+	UserId      uint `gorm:"primary_key"`
+	AmountTotal int
+	Cant        int
+}
+
+type ResponseCreditApplication struct {
+	LoanId      uint
+	Installment float32
+}
+
+type UserLoans struct {
+	ID          uint `gorm:"primary_key"`
+	Date        string
+	UserId      uint
+	Ammount     int
+	Installment float32
+	Target      string
 }
 
 type RegisterPaymentMade struct {
-	amount float64
+	UserId uint
+	Amount int
+}
+type DebtPayment struct {
+	gorm.Model
+	LoanId int
+	Debt   int
 }
 
-type ResponseRegisterPaymentMade struct {
-	amount float64
-}
-
-type RaiseDebt struct {
-	Date string
-}
-
-//
-type ResponseRaiseDebt struct {
-	balance string
+type Balnace struct {
+	Balance int
 }
