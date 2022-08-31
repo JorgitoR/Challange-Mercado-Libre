@@ -35,7 +35,7 @@ jobs:
       with:
         files: '["eks/**"]'
       env:
-        DB_USERNAME: postgres
+        DB_USERNAME: production
         DB_PASSWORD: jorgito
         DB_TABLE: postgres
         DB_DB: postgres
