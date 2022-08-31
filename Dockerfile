@@ -23,7 +23,6 @@ RUN apk add build-base
 WORKDIR /app
 COPY --from=builder  app/main main
 RUN chmod +x ./main
-HEALTHCHECK CMD curl --fail http://localhost:8080/healthz || exit 1
 
 EXPOSE 8080
 CMD ["./main"]
