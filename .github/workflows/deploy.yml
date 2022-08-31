@@ -38,7 +38,7 @@ jobs:
         DB_USERNAME: postgres
         DB_PASSWORD: jorgito
         DB_TABLE: postgres
-        DB_PORT: 5432
+        DB_PORT: "5432"
         DB_DB: postgres
         DB_HOST: localhost
           
