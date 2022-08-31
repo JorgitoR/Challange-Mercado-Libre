@@ -39,7 +39,7 @@ jobs:
         DB_PASSWORD: "jorgito"
           
     - name: Update kube config
-      run: aws eks update-kubeconfig --name simple-bank --region eu-west-1
+      run: aws eks update-kubeconfig --name mercado-libre-challange --region us-east-2
 
     - name: Deploy image to Amazon EKS
       run: |
