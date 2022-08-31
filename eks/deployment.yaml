@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mercado-libre-challange-api
+  labels:
+    app: mercado-libre-challange
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mercado-libre-challange
+  template:
+    metadata:
+      labels:
+        app: mercado-libre-challange
+    spec:
+      containers:
+      - name: mercado-libre-challange
+        image: 220192014943.dkr.ecr.us-east-2.amazonaws.com/mercado-libre-ecr:adc1bb6e1d957d0d61be2d763fef9180c7801e09
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
