@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/JorgitoR/Challange-Mercado-Libre/internal/domain"
 	"github.com/JorgitoR/Challange-Mercado-Libre/internal/infraestructure/adapters"
@@ -50,6 +52,7 @@ func (app *App) Run() error {
 }
 
 func main() {
+	fmt.Println(os.Getenv("DB_HOST"))
 	app := App{
 		Name:    "",
 		Version: "1.0",

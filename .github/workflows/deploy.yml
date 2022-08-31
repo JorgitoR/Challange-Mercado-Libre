@@ -35,8 +35,12 @@ jobs:
       with:
         files: '["eks/**"]'
       env:
-        DB_USERNAME: "postgres"
-        DB_PASSWORD: "jorgito"
+        DB_USERNAME: postgres
+        DB_PASSWORD: jorgito
+        DB_TABLE: postgres
+        DB_PORT: 5432
+        DB_DB: postgres
+        DB_HOST: localhost
           
     - name: Update kube config
       run: aws eks update-kubeconfig --name mercado-libre-challange --region us-east-2
