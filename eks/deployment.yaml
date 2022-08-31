@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: mercado-libre-challange
-        image: 220192014943.dkr.ecr.us-east-2.amazonaws.com/mercado-libre-ecr:6d2f21a0fd6b9160e159fcb28a41afc35062bcc4
+        image: 220192014943.dkr.ecr.us-east-2.amazonaws.com/mercado-libre-ecr:980f6939c374a3264b928f0b1f03c8a57581e825
         imagePullPolicy: Always
         ports:
         - containerPort: 8080 
