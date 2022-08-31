@@ -14,7 +14,7 @@ ADD . /app
 WORKDIR /app
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o app cmd/server/main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -o app cmd/main.go
 
 # Run the Go Binary in Alpine.
 FROM public.ecr.aws/docker/library/alpine:3.14
