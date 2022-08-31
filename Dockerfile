@@ -9,10 +9,12 @@ RUN apk add build-base
 RUN git config --global url.https://$GO_MODULES_TOKEN@github.com/.insteadOf https://github.com/
 
 ENV GOPRIVATE=github.com/JorgitoR/Challange-Mercado-Libre/*
+RUN mkdir /app
+ADD . /app
 WORKDIR /app
 COPY . .
 
-RUN GOOS=linux GOARCH=arm64 go build -tags musl -tags dynamic cmd/main.go 
+RUN CGO_ENABLED=0 GOOS=linux go build -o app cmd/server/main.go
 
 # Run the Go Binary in Alpine.
 FROM public.ecr.aws/docker/library/alpine:3.14
@@ -21,9 +23,10 @@ RUN apk update
 RUN apk add build-base
 
 WORKDIR /app
-COPY --from=builder  app/main main
+COPY --from=builder  /app .
 RUN chmod +x ./main
 HEALTHCHECK CMD curl --fail http://localhost:8080/healthz || exit 1
 
-EXPOSE 8080
-CMD ["./main"]
+EXPOSE 8080 
+
+CMD ["./app"]
