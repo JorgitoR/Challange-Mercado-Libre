@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mercado-libre-challange-api
+  name: credit-api
   labels:
-    app: mercado-libre-challange
+    app: credit-api
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: mercado-libre-challange
+      app: credit-api
   template:
     metadata:
       labels:
-        app: mercado-libre-challange
+        app: credit-api
     spec:
       containers:
-      - name: mercado-libre-challange
-        image: 220192014943.dkr.ecr.us-east-2.amazonaws.com/mercado-libre-ecr:980f6939c374a3264b928f0b1f03c8a57581e825
+      - name: credit-api
+        image: 220192014943.dkr.ecr.us-east-2.amazonaws.com/mercado-libre-ecr:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080 
