@@ -26,6 +26,6 @@ RUN chmod +x ./main
 USER appidentity
 HEALTHCHECK CMD curl --fail http://localhost:8080/healthz || exit 1
 
-EXPOSE 8080 
+EXPOSE 80 
 
 CMD ["./main"]
