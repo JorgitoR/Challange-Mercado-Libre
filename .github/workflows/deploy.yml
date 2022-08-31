@@ -29,13 +29,14 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
         docker push -a $ECR_REGISTRY/$ECR_REPOSITORY
-
-    - uses: cschleiden/replace-tokens@v1
-        with:
-          files: '["eks/**"]'
-        env:
-          DB_USERNAME: "postgres"
-          DB_PASSWORD: "jorgito"
+    
+    - name: Get Certificates
+      uses: cschleiden/replace-tokens@v1
+      with:
+        files: '["eks/**"]'
+      env:
+        DB_USERNAME: "postgres"
+        DB_PASSWORD: "jorgito"
           
     - name: Update kube config
       run: aws eks update-kubeconfig --name simple-bank --region eu-west-1
