@@ -48,4 +48,17 @@ spec:
           runAsUser: 10001
           allowPrivilegeEscalation: false
           readOnlyRootFilesystem: true
+        env:
+          - name: DB_USERNAME
+            value: #{DB_USERNAME}#
+          - name: DB_PASSWORD
+            value: #{DB_PASSWORD}#
+          - name: DB_TABLE
+            value: #{DB_TABLE}#
+          - name: DB_PORT
+            value: #{DB_PORT}#
+          - name: DB_DB
+            value: #{DB_DB}#
+          - name: DB_HOST
+            value: #{DB_HOST}#
 
