@@ -1,3 +1,5 @@
+DB_URL=postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable
+
 run:
 	go run cmd/main.go
 
@@ -18,3 +20,7 @@ fmt:
 
 watch-coverage:
 	go tool cover -html=coverage.out
+
+
+migrateup:
+	migrate -path db/migration -database "postgresql://root:MaXRn0aWBcFEnmPlmuzC@database-1.ctmmrijpqxtv.us-east-2.rds.amazonaws.com:5432/mercado_libre" -verbose up
