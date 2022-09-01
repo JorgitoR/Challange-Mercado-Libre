@@ -21,10 +21,9 @@ type Service struct {
 }
 
 // NewService - returns a new Market Credito service
-func NewService(domain DomainMarketPlace, db *gorm.DB) *Service {
+func NewService(domain DomainMarketPlace) *Service {
 	return &Service{
 		domain: domain,
-		DB:     db,
 	}
 }
 

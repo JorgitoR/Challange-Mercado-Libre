@@ -39,7 +39,7 @@ func (app *App) Run() error {
 	domain := domain.New(repository)
 
 	// UseCases
-	domainMarketPlace := usecases.NewService(domain, postgresClient)
+	domainMarketPlace := usecases.NewService(domain)
 
 	// Infraestructure -
 	handler := entrypoints.NewAPIService(domainMarketPlace)
