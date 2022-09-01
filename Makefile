@@ -1,5 +1,3 @@
-DB_URL=postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable
-
 run:
 	go run cmd/main.go
 

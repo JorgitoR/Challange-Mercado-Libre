@@ -23,12 +23,12 @@ func (app *App) Run() error {
 
 	postgresClient, err := adapters.PostgresClient()
 	if err != nil {
-		return err
+		return fmt.Errorf("Failed to setup our database umm %+v ", err)
 	}
-	err = adapters.MigrateDB(postgresClient)
-	if err != nil {
+	errDataMigrate := adapters.MigrateDB(postgresClient)
+	if errDataMigrate != nil {
 		log.Fatal("failed to setup database")
-		return err
+		return errDataMigrate
 	}
 	repository := struct {
 		*adapters.DTBAdapter
@@ -58,7 +58,7 @@ func main() {
 		Version: "1.0",
 	}
 	if err := app.Run(); err != nil {
-		log.Fatal("Error starting up our REST API", err)
+		log.Fatal("Error starting up our REST API ", err)
 	}
 
 }
