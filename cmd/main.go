@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/JorgitoR/Challange-Mercado-Libre/internal/infraestructure/adapters"
 	"github.com/JorgitoR/Challange-Mercado-Libre/internal/infraestructure/entrypoints"
 	"github.com/JorgitoR/Challange-Mercado-Libre/internal/usecases"
 )
@@ -19,16 +18,6 @@ type App struct {
 
 // Run - sets up our application
 func (app *App) Run() error {
-
-	postgresClient, err := adapters.PostgresClient()
-	if err != nil {
-		return fmt.Errorf("Failed to setup our database umm %+v ", err)
-	}
-	errDataMigrate := adapters.MigrateDB(postgresClient)
-	if errDataMigrate != nil {
-		log.Fatal("failed to setup database")
-		return errDataMigrate
-	}
 
 	// UseCases
 	domainMarketPlace := usecases.NewService()
