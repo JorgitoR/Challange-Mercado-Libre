@@ -21,10 +21,8 @@ type Service struct {
 }
 
 // NewService - returns a new Market Credito service
-func NewService(domain DomainMarketPlace) *Service {
-	return &Service{
-		domain: domain,
-	}
+func NewService() *Service {
+	return &Service{}
 }
 
 // PostCredit - adds a new Credit Application

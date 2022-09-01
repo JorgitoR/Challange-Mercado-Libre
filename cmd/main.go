@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/JorgitoR/Challange-Mercado-Libre/internal/domain"
 	"github.com/JorgitoR/Challange-Mercado-Libre/internal/infraestructure/adapters"
 	"github.com/JorgitoR/Challange-Mercado-Libre/internal/infraestructure/entrypoints"
 	"github.com/JorgitoR/Challange-Mercado-Libre/internal/usecases"
@@ -30,16 +29,9 @@ func (app *App) Run() error {
 		log.Fatal("failed to setup database")
 		return errDataMigrate
 	}
-	repository := struct {
-		*adapters.DTBAdapter
-	}{
-		adapters.NewPostgreSQLAdapter(postgresClient),
-	}
-	// Domain
-	domain := domain.New(repository)
 
 	// UseCases
-	domainMarketPlace := usecases.NewService(domain)
+	domainMarketPlace := usecases.NewService()
 
 	// Infraestructure -
 	handler := entrypoints.NewAPIService(domainMarketPlace)
