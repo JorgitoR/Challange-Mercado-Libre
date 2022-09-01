@@ -42,8 +42,6 @@ spec:
             value: #{DB_PASSWORD}#
           - name: DB_TABLE
             value: #{DB_TABLE}#
-          - name: DB_PORT
-            value: #{DB_PORT}#
           - name: DB_DB
             value: #{DB_DB}#
           - name: DB_HOST

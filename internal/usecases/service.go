@@ -21,8 +21,11 @@ type Service struct {
 }
 
 // NewService - returns a new Market Credito service
-func NewService() *Service {
-	return &Service{}
+func NewService(domain DomainMarketPlace, db *gorm.DB) *Service {
+	return &Service{
+		domain: domain,
+		DB:     db,
+	}
 }
 
 // PostCredit - adds a new Credit Application

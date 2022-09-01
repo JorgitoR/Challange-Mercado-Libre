@@ -6,8 +6,11 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/JorgitoR/Challange-Mercado-Libre/internal/domain"
+	"github.com/JorgitoR/Challange-Mercado-Libre/internal/infraestructure/adapters"
 	"github.com/JorgitoR/Challange-Mercado-Libre/internal/infraestructure/entrypoints"
 	"github.com/JorgitoR/Challange-Mercado-Libre/internal/usecases"
+	"github.com/JorgitoR/Challange-Mercado-Libre/pkg"
 )
 
 // App - the struct which contains information about our app
@@ -19,8 +22,24 @@ type App struct {
 // Run - sets up our application
 func (app *App) Run() error {
 
+	postgresClient, err := pkg.PostgresClient()
+	if err != nil {
+		return fmt.Errorf("Failed to setup our database umm %+v ", err)
+	}
+	errDataMigrate := adapters.MigrateDB(postgresClient)
+	if errDataMigrate != nil {
+		log.Fatal("failed to setup database")
+		return errDataMigrate
+	}
+	repository := struct {
+		*adapters.DTBAdapter
+	}{
+		adapters.NewPostgreSQLAdapter(postgresClient),
+	}
+	// Domain
+	domain := domain.New(repository)
 	// UseCases
-	domainMarketPlace := usecases.NewService()
+	domainMarketPlace := usecases.NewService(domain, postgresClient)
 
 	// Infraestructure -
 	handler := entrypoints.NewAPIService(domainMarketPlace)

@@ -27,7 +27,7 @@ func (h *Handler) PostCredit(w http.ResponseWriter, r *http.Request) {
 	}
 	response, err := h.Service.PostCredit(creditApplication)
 	if err != nil {
-		sendErrorResponse(w, "Failed to post new Credit Application", err)
+		sendErrorResponse(w, "Failed to post a new Credit Application", err)
 		return
 	}
 	if err := json.NewEncoder(w).Encode(response); err != nil {
