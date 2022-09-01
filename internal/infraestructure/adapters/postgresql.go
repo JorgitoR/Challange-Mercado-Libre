@@ -115,9 +115,9 @@ func PostgresClient() (*gorm.DB, error) {
 	dbPassword := os.Getenv("DB_PASSWORD")
 	dbHost := os.Getenv("DB_HOST")
 	dbTable := os.Getenv("DB_TABLE")
-	dbPort := 5432
+	dbPort := "5432"
 
-	connectString := fmt.Sprintf("host=%s port=%d user=%s dbname=%s password=%s sslmode=disable", dbHost, dbPort, dbUsername, dbTable, dbPassword)
+	connectString := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable", dbHost, dbPort, dbUsername, dbTable, dbPassword)
 
 	db, err := gorm.Open("postgres", connectString)
 	if err != nil {
