@@ -18,8 +18,8 @@ func PostgresClient() (*gorm.DB, error) {
 
 	connectString := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable", dbHost, dbPort, dbUsername, dbTable, dbPassword)
 	fmt.Println("Conexion dtb", connectString)
-
-	db, err := gorm.Open("postgres", connectString)
+	cc := "postgresql://root:MaXRn0aWBcFEnmPlmuzC@database-1.ctmmrijpqxtv.us-east-2.rds.amazonaws.com:5432/mercado_libre"
+	db, err := gorm.Open("postgres", cc)
 	if err != nil {
 		return db, err
 	}

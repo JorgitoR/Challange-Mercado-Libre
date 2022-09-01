@@ -24,7 +24,7 @@ func (app *App) Run() error {
 
 	postgresClient, err := pkg.PostgresClient()
 	if err != nil {
-		return fmt.Errorf("Failed to setup our database umm %+v ", err)
+		return fmt.Errorf("Failed to setup our database %+v ", err)
 	}
 	errDataMigrate := adapters.MigrateDB(postgresClient)
 	if errDataMigrate != nil {
@@ -43,7 +43,9 @@ func (app *App) Run() error {
 
 	// Infraestructure -
 	handler := entrypoints.NewAPIService(domainMarketPlace)
+
 	handler.SetupRoutes()
+
 	if err := http.ListenAndServe(":8080", handler.Router); err != nil {
 		log.Fatal("Failed to set up server")
 		return err
