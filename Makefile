@@ -21,4 +21,9 @@ watch-coverage:
 
 
 migrateup:
-	migrate -path db/migration -database "postgresql://root:MaXRn0aWBcFEnmPlmuzC@database-1.ctmmrijpqxtv.us-east-2.rds.amazonaws.com:5432/mercado_libre" -verbose up
+	migrate -path internal/infraestructure/db/migration -database "postgresql://root:MaXRn0aWBcFEnmPlmuzC@database-1.ctmmrijpqxtv.us-east-2.rds.amazonaws.com:5432/mercado_libre"  force 15 up
+
+	
+
+migratedown:
+	migrate -path internal/infraestructure/db/migration -database "postgresql://root:MaXRn0aWBcFEnmPlmuzC@database-1.ctmmrijpqxtv.us-east-2.rds.amazonaws.com:5432/mercado_libre" -verbose down

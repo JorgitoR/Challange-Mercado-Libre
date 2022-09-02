@@ -1,6 +1,8 @@
 package domain
 
 import (
+	"context"
+
 	"github.com/JorgitoR/Challange-Mercado-Libre/internal/domain/model"
 	_ "github.com/JorgitoR/Challange-Mercado-Libre/internal/domain/model"
 )
@@ -54,4 +56,11 @@ func (m *MercadoCredito) GetDebt(id uint) (model.UserLoans, error) {
 		return model.UserLoans{}, err
 	}
 	return response, nil
+}
+
+///////////////////////////////
+
+func (m *MercadoCredito) SavePayment(ctx context.Context, args model.DebtPayment) error {
+	m.repository.SavePaymentDatabase(ctx, args)
+	return nil
 }

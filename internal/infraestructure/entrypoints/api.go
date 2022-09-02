@@ -1,6 +1,7 @@
 package entrypoints
 
 import (
+	"context"
 	"encoding/json"
 	"net/http"
 
@@ -11,7 +12,7 @@ import (
 type Service interface {
 	PostCredit(payload model.CreditApplication) (model.ResponseCreditApplication, error)
 	GetLoans(dateFrom string, dateTo string) ([]model.CreditApplication, error)
-	PostPayment(model.RegisterPaymentMade) (model.DebtPayment, error)
+	PostPayment(context.Context, model.RegisterPaymentMade) (model.DebtPayment, error)
 	GetDebt(date string, target string) (model.Balnace, error)
 }
 
@@ -62,7 +63,7 @@ func (h *Handler) PostPayment(w http.ResponseWriter, r *http.Request) {
 		sendErrorResponse(w, "Failed to decode JSON Body", err)
 		return
 	}
-	response, err := h.Service.PostPayment(registerPaymentMade)
+	response, err := h.Service.PostPayment(r.Context(), registerPaymentMade)
 	if err != nil {
 		sendErrorResponse(w, "Failed to Pay a Credit", err)
 		return
