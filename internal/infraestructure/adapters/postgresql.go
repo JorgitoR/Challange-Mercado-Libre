@@ -1,8 +1,6 @@
 package adapters
 
 import (
-	"context"
-	"database/sql"
 	"errors"
 	"fmt"
 	"time"
@@ -13,33 +11,15 @@ import (
 )
 
 type DTBAdapter struct {
-	DB  *gorm.DB
-	DBP *sql.DB
+	DB *gorm.DB
 }
 
-func NewPostgreSQLAdapter(dd *gorm.DB, db *sql.DB) *DTBAdapter {
+func NewPostgreSQLAdapter(dd *gorm.DB) *DTBAdapter {
 	return &DTBAdapter{
-		DB:  dd,
-		DBP: db,
+		DB: dd,
 	}
 }
 
-const createUser = `-- name: CreateUser :one
-INSERT INTO users (
-  username,
-  hashed_password,
-  full_name,
-  email
-) VALUES (
-  $1, $2, $3, $4
-) RETURNING username, hashed_password, full_name, email, password_changed_at, created_at
-`
-
-func (s *DTBAdapter) SavePaymentDatabase(ctx context.Context, args model.DebtPayment) error {
-	return nil
-}
-
-///////////////////
 func (s *DTBAdapter) CreditApplication(creditApplication model.CreditApplication) error {
 	fmt.Println(time.Now().Format(time.RFC3339))
 	_, credit := s.FindCreditApplication(creditApplication)

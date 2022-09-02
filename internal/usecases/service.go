@@ -2,7 +2,6 @@ package usecases
 
 import (
 	"context"
-	"database/sql"
 	"fmt"
 
 	"github.com/JorgitoR/Challange-Mercado-Libre/internal/domain/model"
@@ -15,21 +14,18 @@ type DomainMarketPlace interface {
 	PostPayment(model.RegisterPaymentMade) (model.DebtPayment, error)
 	GetDebt(id uint) (model.UserLoans, error)
 	UserLoans(model.UserLoans) (uint, error)
-	SavePayment(context.Context, model.DebtPayment) error
 }
 
 type Service struct {
 	DB     *gorm.DB
-	DBSQL  *sql.DB
 	domain DomainMarketPlace
 }
 
 // NewService - returns a new Market Credito service
-func NewService(domain DomainMarketPlace, dbp *gorm.DB, db *sql.DB) *Service {
+func NewService(domain DomainMarketPlace, db *gorm.DB) *Service {
 	return &Service{
 		domain: domain,
-		DB:     dbp,
-		DBSQL:  db,
+		DB:     db,
 	}
 }
 
@@ -83,10 +79,7 @@ func (s *Service) PostPayment(ctx context.Context, payment model.RegisterPayment
 	debtPayment := model.DebtPayment{}
 	debtPayment.LoanId = int(userLoan.ID)
 	debtPayment.Debt = debt
-	umm := s.domain.SavePayment(ctx, debtPayment)
-	if umm != nil {
-		return model.DebtPayment{}, umm
-	}
+
 	if result := s.DB.Save(&debtPayment); result.Error != nil {
 		return model.DebtPayment{}, nil
 	}

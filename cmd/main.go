@@ -1,7 +1,6 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
@@ -23,39 +22,28 @@ type App struct {
 // Run - sets up our application
 func (app *App) Run() error {
 
-	db, _ := sql.Open("postgres", "postgresql://root:MaXRn0aWBcFEnmPlmuzC@database-1.ctmmrijpqxtv.us-east-2.rds.amazonaws.com:5432/mercado_libre")
-
-	if err := db.Ping(); err != nil {
-		return err
-	}
-
 	postgresClient, err := pkg.PostgresClient()
 	if err != nil {
-		return fmt.Errorf("Failed to setup our database %+v ", err)
+		return fmt.Errorf("Failed to setup our database umm %+v ", err)
 	}
-
-	/*
-		errDataMigrate := adapters.MigrateDB(db)
-		if errDataMigrate != nil {
-			log.Fatal("failed to setup database")
-			return errDataMigrate
-		}
-	*/
+	errDataMigrate := adapters.MigrateDB(postgresClient)
+	if errDataMigrate != nil {
+		log.Fatal("failed to setup database")
+		return errDataMigrate
+	}
 	repository := struct {
 		*adapters.DTBAdapter
 	}{
-		adapters.NewPostgreSQLAdapter(postgresClient, db),
+		adapters.NewPostgreSQLAdapter(postgresClient),
 	}
 	// Domain
 	domain := domain.New(repository)
 	// UseCases
-	domainMarketPlace := usecases.NewService(domain, postgresClient, db)
+	domainMarketPlace := usecases.NewService(domain, postgresClient)
 
 	// Infraestructure -
 	handler := entrypoints.NewAPIService(domainMarketPlace)
-
 	handler.SetupRoutes()
-
 	if err := http.ListenAndServe(":8080", handler.Router); err != nil {
 		log.Fatal("Failed to set up server")
 		return err
